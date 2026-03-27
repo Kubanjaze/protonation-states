@@ -28,6 +28,23 @@ Outputs: protonation_states.csv, charge_distribution.png
 - protonation_states.csv: compound_name, family, n_ionizable_groups, formal_charge_ph74, dominant_form
 - charge_distribution.png: stacked bar or histogram of charge states (−2, −1, 0, +1, +2) by family
 
+## Key Concepts
+- RDKit MolStandardize (Normalizer, LargestFragmentChooser, Uncharger)
+- SMARTS-based ionizable group detection (amines, acids, phenols, sulfonamides, imidazoles)
+- Group-specific pKa estimation using literature default values
+- Henderson-Hasselbalch logic: pKa > pH = protonated, pKa < pH = deprotonated
+
+## Verification Checklist
+- [x] 45/45 compounds parsed without SMILES failures
+- [x] protonation_states.csv contains per-compound ionizable group counts and formal charges
+- [x] charge_distribution.png saved to output/
+- [x] All compounds are neutral at pH 7.4 (formal charge = 0)
+- [x] bzim family correctly identified as having 1 imidazole NH per compound
+
+## Risks
+- pKa values are group-specific defaults, not compound-specific predictions (real pKa shifts with environment)
+- Only 6 ionizable group types covered; rare functional groups may be missed
+
 ## Actual Results (v1.1)
 
 | Family | Mean ionizable groups | Min | Max |
